@@ -12,7 +12,7 @@ import { ResourcesView } from '@/views/ResourcesView';
 import { AssignmentsView } from '@/views/AssignmentsView';
 import { NoticesView } from '@/views/NoticesView';
 import { CommunityView } from '@/views/CommunityView';
-import { WorkspaceView } from '@/views/WorkspaceView';
+import { NotesView, ProfileView } from '@/views/WorkspaceView';
 import { GraduationCap, Loader2 } from 'lucide-react';
 
 function AuthedApp() {
@@ -28,7 +28,8 @@ function AuthedApp() {
       {tab === 'assignments' && <AssignmentsView />}
       {tab === 'notices' && <NoticesView />}
       {tab === 'community' && <CommunityView />}
-      {tab === 'workspace' && <WorkspaceView />}
+      {tab === 'notes' && <NotesView />}
+      {tab === 'profile' && <ProfileView />}
     </AppLayout>
   );
 }

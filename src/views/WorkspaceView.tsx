@@ -14,36 +14,10 @@ import { useAuth } from '@/context/AuthContext';
 import { initials } from '@/lib/utils';
 import { Badge, Button, Card, EmptyState, ErrorState, LoadingState, SectionTitle } from '@/components/ui';
 
-type SubTab = 'notes' | 'profile';
-
-export function WorkspaceView() {
-  const [tab, setTab] = useState<SubTab>('notes');
-
-  return (
-    <div className="space-y-6">
-      <SectionTitle title="Personal Workspace" subtitle="Private notebook and profile — only visible to you." icon={<NotebookPen className="h-5 w-5" />} />
-
-      <div className="flex w-fit gap-1 rounded-xl bg-slate-800/60 p-1">
-        {(['notes', 'profile'] as SubTab[]).map((t) => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={
-              'rounded-lg px-4 py-2 text-sm font-semibold capitalize transition ' +
-              (tab === t ? 'bg-slate-700 text-white shadow' : 'text-slate-400 hover:text-slate-200')
-            }
-          >
-            {t === 'notes' ? 'My Notes' : 'Profile'}
-          </button>
-        ))}
-      </div>
-
-      {tab === 'notes' ? <NotesPanel /> : <ProfilePanel />}
-    </div>
-  );
-}
-
-function NotesPanel() {
+/* ====================================================================
+   1. DEDICATED NOTES VIEW (STANDALONE PAGE)
+   ==================================================================== */
+export function NotesView() {
   const { user } = useAuth();
   const [notes, setNotes] = useState<PersonalNote[] | null>(null);
   const [active, setActive] = useState<PersonalNote | null>(null);
@@ -56,7 +30,11 @@ function NotesPanel() {
 
   const load = useCallback(async () => {
     if (!user) return;
-    const { data, error } = await supabase.from('personal_notes').select('*').eq('user_id', user.id).order('updated_at', { ascending: false });
+    const { data, error } = await supabase
+      .from('personal_notes')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('updated_at', { ascending: false });
     if (error) { setError(error.message); return; }
     setNotes(data);
     setError(null);
@@ -123,7 +101,13 @@ function NotesPanel() {
   if (notes === null) return <LoadingState label="Loading your notes…" />;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      <SectionTitle
+        title="My Personal Notes"
+        subtitle="Private notepad for quick study notes, reminders, and code snippets."
+        icon={<NotebookPen className="h-5 w-5" />}
+      />
+
       {error && <p className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-300">{error}</p>}
 
       <div className="grid gap-4 lg:grid-cols-[320px_1fr]">
@@ -214,7 +198,10 @@ function NotesPanel() {
   );
 }
 
-function ProfilePanel() {
+/* ====================================================================
+   2. DEDICATED PROFILE VIEW (STANDALONE PAGE)
+   ==================================================================== */
+export function ProfileView() {
   const { user } = useAuth();
   if (!user) return <ErrorState message="No user session." />;
 
@@ -236,38 +223,46 @@ function ProfilePanel() {
   ];
 
   return (
-    <div className="max-w-2xl space-y-4">
-      <Card className="p-6">
-        <div className="flex items-center gap-4">
-          {avatarUrl ? (
-            <img src={avatarUrl} alt={fullName} className="h-16 w-16 rounded-2xl border border-slate-700 object-cover" referrerPolicy="no-referrer" />
-          ) : (
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-700 bg-slate-800 text-lg font-bold text-sky-300">
-              {initials(fullName !== '—' ? fullName : email)}
+    <div className="space-y-6">
+      <SectionTitle
+        title="Student Profile"
+        subtitle="Your official academic profile details."
+        icon={<UserCircle className="h-5 w-5" />}
+      />
+
+      <div className="max-w-2xl space-y-4">
+        <Card className="p-6">
+          <div className="flex items-center gap-4">
+            {avatarUrl ? (
+              <img src={avatarUrl} alt={fullName} className="h-16 w-16 rounded-2xl border border-slate-700 object-cover" referrerPolicy="no-referrer" />
+            ) : (
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-700 bg-slate-800 text-lg font-bold text-sky-300">
+                {initials(fullName !== '—' ? fullName : email)}
+              </div>
+            )}
+            <div>
+              <h3 className="text-lg font-bold text-white">{fullName}</h3>
+              <p className="text-sm text-slate-400">{email}</p>
+              <Badge tone="sky" className="mt-1.5"><UserCircle className="h-3 w-3" /> Student</Badge>
             </div>
-          )}
-          <div>
-            <h3 className="text-lg font-bold text-white">{fullName}</h3>
-            <p className="text-sm text-slate-400">{email}</p>
-            <Badge tone="sky" className="mt-1.5"><UserCircle className="h-3 w-3" /> Student</Badge>
           </div>
-        </div>
-      </Card>
+        </Card>
 
-      <Card className="p-0">
-        <div className="divide-y divide-slate-800">
-          {rows.map((r) => (
-            <div key={r.label} className="flex items-center justify-between gap-4 px-5 py-3.5">
-              <span className="text-sm text-slate-500">{r.label}</span>
-              <span className="text-sm font-semibold text-slate-200">{r.value}</span>
-            </div>
-          ))}
-        </div>
-      </Card>
+        <Card className="p-0">
+          <div className="divide-y divide-slate-800">
+            {rows.map((r) => (
+              <div key={r.label} className="flex items-center justify-between gap-4 px-5 py-3.5">
+                <span className="text-sm text-slate-500">{r.label}</span>
+                <span className="text-sm font-semibold text-slate-200">{r.value}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
 
-      <p className="text-xs text-slate-600">
-        Profile details like Roll Number and Department come from your sign-in metadata. Contact your administrator to update them.
-      </p>
+        <p className="text-xs text-slate-600">
+          Profile details like Roll Number and Department come from your sign-in metadata. Contact your administrator to update them.
+        </p>
+      </div>
     </div>
   );
 }

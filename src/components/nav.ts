@@ -10,6 +10,7 @@ import {
   NotebookPen,
   Trophy,
   Users,
+  UserCircle
 } from 'lucide-react';
 
 export type TabId =
@@ -39,7 +40,8 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'assignments', label: 'Assignments', short: 'Tasks', icon: ClipboardList },
   { id: 'notices', label: 'Notices', short: 'Notices', icon: Megaphone },
   { id: 'community', label: 'Community', short: 'Groups', icon: MessageCircle },
-  { id: 'workspace', label: 'My Workspace', short: 'Notes', icon: NotebookPen },
+  { id: 'notes', label: 'My Notes', icon: NotebookPen },
+{ id: 'profile', label: 'Profile', icon: UserCircle },
 ];
 
 export const BRAND = {
