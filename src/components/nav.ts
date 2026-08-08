@@ -22,7 +22,8 @@ export type TabId =
   | 'assignments'
   | 'notices'
   | 'community'
-  | 'workspace';
+  | 'notes'    // 👈 Added
+  | 'profile';  // 👈 Added
 
 export type NavItem = {
   id: TabId;
@@ -40,8 +41,8 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'assignments', label: 'Assignments', short: 'Tasks', icon: ClipboardList },
   { id: 'notices', label: 'Notices', short: 'Notices', icon: Megaphone },
   { id: 'community', label: 'Community', short: 'Groups', icon: MessageCircle },
-  { id: 'notes', label: 'My Notes', icon: NotebookPen },
-{ id: 'profile', label: 'Profile', icon: UserCircle },
+  { id: 'notes', label: 'My Notes', short: 'Notes', icon: NotebookPen },    // 👈 Added short
+  { id: 'profile', label: 'Profile', short: 'Profile', icon: UserCircle },   // 👈 Added short
 ];
 
 export const BRAND = {
