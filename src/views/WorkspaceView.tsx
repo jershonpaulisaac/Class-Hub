@@ -119,7 +119,7 @@ export function NotesView() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search notes…"
-                className="w-full rounded-lg border border-slate-800 bg-slate-900/60 py-2 pl-9 pr-3 text-xs text-white placeholder-slate-500 outline-none focus:border-sky-500"
+                className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-3 text-xs text-slate-900 placeholder-slate-400 outline-none focus:border-indigo-500"
               />
             </div>
             <Button variant="primary" onClick={createNote} disabled={creating} className="px-3 py-2">
@@ -137,10 +137,10 @@ export function NotesView() {
                   onClick={() => selectNote(n)}
                   className={
                     'group w-full rounded-xl border p-3 text-left transition ' +
-                    (active?.id === n.id ? 'border-sky-500/40 bg-sky-500/10' : 'border-slate-800 bg-slate-900/40 hover:border-slate-700')
+                    (active?.id === n.id ? 'border-indigo-200 bg-indigo-50' : 'border-slate-200 bg-white hover:border-slate-300')
                   }
                 >
-                  <p className="truncate text-sm font-semibold text-slate-200">{n.title || 'Untitled'}</p>
+                  <p className="truncate text-sm font-semibold text-slate-800">{n.title || 'Untitled'}</p>
                   <p className="mt-0.5 line-clamp-2 text-xs text-slate-500">{n.content || 'No content'}</p>
                   <p className="mt-1 text-[10px] text-slate-600">
                     {new Date(n.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
@@ -154,7 +154,7 @@ export function NotesView() {
         <Card className="flex flex-col p-0">
           {active ? (
             <div className="flex h-full flex-col">
-              <div className="flex items-center justify-between gap-2 border-b border-slate-800 px-4 py-3">
+              <div className="flex items-center justify-between gap-2 border-b border-slate-200 px-4 py-3">
                 <div className="flex items-center gap-2 text-xs text-slate-500">
                   <FileText className="h-4 w-4" /> Editing note
                 </div>
@@ -172,23 +172,23 @@ export function NotesView() {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Note title"
-                  className="w-full rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2.5 text-base font-bold text-white placeholder-slate-600 outline-none focus:border-sky-500"
+                  className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-base font-bold text-slate-900 placeholder-slate-400 outline-none focus:border-indigo-500"
                 />
                 <textarea
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   placeholder="Write your note, reminders, or code snippets… (Markdown supported)"
                   rows={14}
-                  className="w-full flex-1 resize-none rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2.5 font-mono text-sm leading-relaxed text-slate-200 placeholder-slate-600 outline-none focus:border-sky-500"
+                  className="w-full flex-1 resize-none rounded-lg border border-slate-200 bg-white px-3 py-2.5 font-mono text-sm leading-relaxed text-slate-700 placeholder-slate-400 outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center px-6 py-20 text-center">
-              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-slate-800/80 text-slate-500">
+              <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-600">
                 <NotebookPen className="h-6 w-6" />
               </div>
-              <p className="text-sm font-semibold text-slate-300">Select a note to edit</p>
+              <p className="text-sm font-semibold text-slate-800">Select a note to edit</p>
               <p className="mt-1 text-xs text-slate-500">Or create a new one with the + button.</p>
             </div>
           )}
@@ -234,22 +234,22 @@ export function ProfileView() {
         <Card className="p-6">
           <div className="flex items-center gap-4">
             {avatarUrl ? (
-              <img src={avatarUrl} alt={fullName} className="h-16 w-16 rounded-2xl border border-slate-700 object-cover" referrerPolicy="no-referrer" />
+              <img src={avatarUrl} alt={fullName} className="h-16 w-16 rounded-2xl border border-slate-200 object-cover" referrerPolicy="no-referrer" />
             ) : (
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-700 bg-slate-800 text-lg font-bold text-sky-300">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200 bg-slate-100 text-lg font-bold text-indigo-700">
                 {initials(fullName !== '—' ? fullName : email)}
               </div>
             )}
             <div>
-              <h3 className="text-lg font-bold text-white">{fullName}</h3>
-              <p className="text-sm text-slate-400">{email}</p>
+              <h3 className="text-lg font-bold text-slate-900">{fullName}</h3>
+              <p className="text-sm text-slate-600">{email}</p>
               <Badge tone="sky" className="mt-1.5"><UserCircle className="h-3 w-3" /> Student</Badge>
             </div>
           </div>
         </Card>
 
         <Card className="p-0">
-          <div className="divide-y divide-slate-800">
+          <div className="divide-y divide-slate-200">
             {rows.map((r) => (
               <div key={r.label} className="flex items-center justify-between gap-4 px-5 py-3.5">
                 <span className="text-sm text-slate-500">{r.label}</span>

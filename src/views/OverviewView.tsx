@@ -70,12 +70,12 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
   return (
     <div className="space-y-6">
       <div className="animate-fade-in">
-        <p className="text-sm text-slate-400">{formatFullDate(clock)}</p>
-        <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+        <p className="text-sm text-slate-600">{formatFullDate(clock)}</p>
+        <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
           {greeting()}, {userName.split(' ')[0].split('@')[0]}.
         </h1>
-        <p className="mt-1 flex items-center gap-2 text-sm text-slate-400">
-          <CalendarClock className="h-4 w-4 text-sky-400" />
+        <p className="mt-1 flex items-center gap-2 text-sm text-slate-600">
+          <CalendarClock className="h-4 w-4 text-indigo-600" />
           {clock.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true })}
         </p>
       </div>
@@ -90,9 +90,9 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
           <Card className="overflow-hidden p-0">
-            <div className="flex items-center gap-2 border-b border-slate-800 px-5 py-3">
-              <Sparkles className="h-4 w-4 text-sky-400" />
-              <h2 className="text-sm font-bold text-white">{inProgress ? 'Class in Session' : 'Next Up'}</h2>
+            <div className="flex items-center gap-2 border-b border-slate-200 px-5 py-3">
+              <Sparkles className="h-4 w-4 text-indigo-600" />
+              <h2 className="text-sm font-bold text-slate-900">{inProgress ? 'Class in Session' : 'Next Up'}</h2>
             </div>
             <div className="p-5">
               {inProgress ? (
@@ -119,9 +119,9 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
                       <Badge tone="emerald" className="mb-3">
                         <Trophy className="h-3 w-3" /> Spotlight Event
                       </Badge>
-                      <h3 className="text-lg font-bold text-white">{spotlight.title}</h3>
-                      <p className="mt-1 line-clamp-2 text-sm text-slate-300">{spotlight.description}</p>
-                      <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-400">
+                      <h3 className="text-lg font-bold text-slate-900">{spotlight.title}</h3>
+                      <p className="mt-1 line-clamp-2 text-sm text-slate-700">{spotlight.description}</p>
+                      <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-600">
                         <span className="flex items-center gap-1">
                           <CalendarClock className="h-3.5 w-3.5" /> {formatDate(spotlight.event_date)} · {formatTime(spotlight.event_time)}
                         </span>
@@ -130,7 +130,7 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
                         </span>
                       </div>
                     </div>
-                    <ArrowRight className="h-5 w-5 shrink-0 text-slate-500 transition group-hover:translate-x-1 group-hover:text-sky-400" />
+                    <ArrowRight className="h-5 w-5 shrink-0 text-slate-500 transition group-hover:translate-x-1 group-hover:text-indigo-600" />
                   </div>
                 </div>
               </button>
@@ -140,11 +140,11 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
 
         <div className="space-y-6">
           <Card className="p-0">
-            <div className="flex items-center justify-between border-b border-slate-800 px-5 py-3">
-              <h2 className="flex items-center gap-2 text-sm font-bold text-white">
-                <Megaphone className="h-4 w-4 text-rose-400" /> Pinned Notices
+            <div className="flex items-center justify-between border-b border-slate-200 px-5 py-3">
+              <h2 className="flex items-center gap-2 text-sm font-bold text-slate-900">
+                <Megaphone className="h-4 w-4 text-rose-600" /> Pinned Notices
               </h2>
-              <button onClick={() => onNavigate('notices')} className="text-xs text-sky-400 hover:underline">View all</button>
+              <button onClick={() => onNavigate('notices')} className="text-xs text-indigo-600 hover:underline">View all</button>
             </div>
             <div className="divide-y divide-slate-800">
               {(notices ?? []).length === 0 ? (
@@ -156,8 +156,8 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
                       <PriorityBadge priority={n.priority} />
                       <span className="text-[10px] text-slate-500">{formatDate(n.date_posted)}</span>
                     </div>
-                    <p className="text-sm font-semibold text-slate-200">{n.title}</p>
-                    <p className="mt-0.5 line-clamp-2 text-xs text-slate-400">{n.content}</p>
+                    <p className="text-sm font-semibold text-slate-800">{n.title}</p>
+                    <p className="mt-0.5 line-clamp-2 text-xs text-slate-600">{n.content}</p>
                   </div>
                 ))
               )}
@@ -165,11 +165,11 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
           </Card>
 
           <Card className="p-0">
-            <div className="flex items-center justify-between border-b border-slate-800 px-5 py-3">
-              <h2 className="flex items-center gap-2 text-sm font-bold text-white">
-                <ClipboardList className="h-4 w-4 text-amber-400" /> Due Soon
+            <div className="flex items-center justify-between border-b border-slate-200 px-5 py-3">
+              <h2 className="flex items-center gap-2 text-sm font-bold text-slate-900">
+                <ClipboardList className="h-4 w-4 text-amber-600" /> Due Soon
               </h2>
-              <button onClick={() => onNavigate('assignments')} className="text-xs text-sky-400 hover:underline">Track</button>
+              <button onClick={() => onNavigate('assignments')} className="text-xs text-indigo-600 hover:underline">Track</button>
             </div>
             <div className="divide-y divide-slate-800">
               {upcomingAssignments.length === 0 ? (
@@ -178,7 +178,7 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
                 upcomingAssignments.map((a) => (
                   <div key={a.id} className="flex items-center justify-between gap-3 px-5 py-3">
                     <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold text-slate-200">{a.title}</p>
+                      <p className="truncate text-sm font-semibold text-slate-800">{a.title}</p>
                       <p className="truncate text-xs text-slate-500">{a.subject_name}</p>
                     </div>
                     <CountdownBadge days={daysUntil(a.due_date)} />
@@ -197,21 +197,21 @@ function NextClassCard({ cls, live = false }: { cls: Timetable; live?: boolean }
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex items-center gap-4">
-        <div className="flex flex-col items-center justify-center rounded-xl border border-slate-700 bg-slate-800/50 px-4 py-3">
+        <div className="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
           <span className="text-[10px] uppercase tracking-wider text-slate-500">Start</span>
-          <span className="text-lg font-bold text-sky-300">{formatTime(cls.start_time)}</span>
+          <span className="text-lg font-bold text-indigo-700">{formatTime(cls.start_time)}</span>
         </div>
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="text-lg font-bold text-white">{cls.subject_name}</h3>
+            <h3 className="text-lg font-bold text-slate-900">{cls.subject_name}</h3>
             {live && (
               <span className="flex items-center gap-1 rounded-full bg-rose-500/15 px-2 py-0.5 text-[10px] font-bold text-rose-300">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-rose-400" /> LIVE
               </span>
             )}
           </div>
-          <p className="text-sm text-slate-400">{cls.subject_code}</p>
-          <div className="mt-1.5 flex flex-wrap gap-2 text-xs text-slate-400">
+          <p className="text-sm text-slate-600">{cls.subject_code}</p>
+          <div className="mt-1.5 flex flex-wrap gap-2 text-xs text-slate-600">
             <span className="flex items-center gap-1">
               <BookOpen className="h-3 w-3" /> Room {cls.room_number ?? 'TBD'}
             </span>
@@ -225,7 +225,7 @@ function NextClassCard({ cls, live = false }: { cls: Timetable; live?: boolean }
       </div>
       <div className="text-left sm:text-right">
         <span className="text-[10px] uppercase tracking-wider text-slate-500">Ends</span>
-        <p className="text-sm font-semibold text-slate-300">{formatTime(cls.end_time)}</p>
+        <p className="text-sm font-semibold text-slate-700">{formatTime(cls.end_time)}</p>
       </div>
     </div>
   );
@@ -233,10 +233,10 @@ function NextClassCard({ cls, live = false }: { cls: Timetable; live?: boolean }
 
 type Tone = 'sky' | 'emerald' | 'amber' | 'rose';
 const TONES: Record<Tone, string> = {
-  sky: 'text-sky-400 bg-sky-500/10',
-  emerald: 'text-emerald-400 bg-emerald-500/10',
-  amber: 'text-amber-400 bg-amber-500/10',
-  rose: 'text-rose-400 bg-rose-500/10',
+  sky: 'text-indigo-700 bg-indigo-50',
+  emerald: 'text-emerald-700 bg-emerald-50',
+  amber: 'text-amber-700 bg-amber-50',
+  rose: 'text-rose-700 bg-rose-50',
 };
 
 function StatCard({ label, value, icon, tone = 'sky' }: { label: string; value: number; icon: React.ReactNode; tone?: Tone }) {
@@ -244,7 +244,7 @@ function StatCard({ label, value, icon, tone = 'sky' }: { label: string; value: 
     <Card className="flex items-center gap-3 p-4">
       <div className={'flex h-9 w-9 items-center justify-center rounded-lg ' + TONES[tone]}>{icon}</div>
       <div>
-        <p className="text-xl font-extrabold text-white">{value}</p>
+        <p className="text-xl font-extrabold text-slate-900">{value}</p>
         <p className="text-[11px] text-slate-500">{label}</p>
       </div>
     </Card>

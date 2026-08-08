@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html,
@@ -14,8 +14,8 @@ body,
 
 body {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  background-color: #0f172a;
-  color: #f8fafc;
+  background-color: #f8fafc;
+  color: #0f172a;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -23,7 +23,7 @@ body {
 /* Custom scrollbar — slim slate */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #334155 transparent;
+  scrollbar-color: #cbd5e1 transparent;
 }
 *::-webkit-scrollbar {
   width: 8px;
@@ -33,17 +33,47 @@ body {
   background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: #334155;
+  background-color: #cbd5e1;
   border-radius: 4px;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background-color: #475569;
+  background-color: #94a3b8;
 }
 
 /* Smooth focus ring */
 *:focus-visible {
-  outline: 2px solid #38bdf8;
+  outline: 2px solid #2563eb;
   outline-offset: 2px;
+}
+
+/* Theme overrides */
+.theme-dark .bg-slate-50 { background-color: #020617 !important; }
+.theme-dark .bg-white { background-color: #111827 !important; }
+.theme-dark .bg-slate-100 { background-color: #1e293b !important; }
+.theme-dark .bg-slate-200 { background-color: #334155 !important; }
+.theme-dark .border-slate-200 { border-color: #334155 !important; }
+.theme-dark .border-slate-300 { border-color: #475569 !important; }
+.theme-dark .text-slate-900 { color: #f8fafc !important; }
+.theme-dark .text-slate-800 { color: #f1f5f9 !important; }
+.theme-dark .text-slate-700 { color: #e2e8f0 !important; }
+.theme-dark .text-slate-600 { color: #cbd5e1 !important; }
+.theme-dark .text-slate-500 { color: #94a3b8 !important; }
+.theme-dark .text-slate-400 { color: #64748b !important; }
+.theme-dark .placeholder-slate-400::placeholder { color: #64748b !important; }
+.theme-dark .shadow-sm { box-shadow: 0 1px 2px 0 rgb(2 6 23 / 0.5), 0 10px 25px rgb(2 6 23 / 0.35) !important; }
+.theme-dark input,
+.theme-dark textarea,
+.theme-dark select {
+  background-color: #111827 !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+.theme-dark input::placeholder,
+.theme-dark textarea::placeholder {
+  color: #64748b !important;
+}
+.theme-dark .divide-slate-200 {
+  border-color: #334155 !important;
 }
 
 /* Utilities */

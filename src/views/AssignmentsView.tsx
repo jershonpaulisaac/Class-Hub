@@ -83,18 +83,18 @@ export function AssignmentsView() {
                     title={isDone ? 'Mark as not done' : 'Mark as completed'}
                     className={
                       'mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-all ' +
-                      (isDone ? 'border-emerald-500 bg-emerald-500 text-white' : 'border-slate-600 text-transparent hover:border-sky-400 hover:text-sky-400/40')
+                      (isDone ? 'border-emerald-500 bg-emerald-500 text-white' : 'border-slate-300 text-transparent hover:border-indigo-400 hover:text-indigo-500')
                     }
                   >
-                    {isBusy ? <Loader2 className="h-3.5 w-3.5 animate-spin text-slate-300" /> : isDone ? <Check className="h-3.5 w-3.5" /> : <Circle className="h-3 w-3" />}
+                    {isBusy ? <Loader2 className="h-3.5 w-3.5 animate-spin text-slate-500" /> : isDone ? <Check className="h-3.5 w-3.5" /> : <Circle className="h-3 w-3" />}
                   </button>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h3 className={'text-base font-bold ' + (isDone ? 'text-slate-500 line-through' : 'text-white')}>{a.title}</h3>
+                      <h3 className={'text-base font-bold ' + (isDone ? 'text-slate-500 line-through' : 'text-slate-900')}>{a.title}</h3>
                       {isDone ? <DoneBadge /> : <CountdownBadge days={days} />}
                     </div>
                     <p className="mt-0.5 text-xs text-slate-500">{a.subject_name}</p>
-                    {a.description && <p className="mt-2 text-sm leading-relaxed text-slate-400">{a.description}</p>}
+                    {a.description && <p className="mt-2 text-sm leading-relaxed text-slate-600">{a.description}</p>}
                     <p className="mt-2 text-[11px] text-slate-500">Due {formatDate(a.due_date)}</p>
                   </div>
                 </div>

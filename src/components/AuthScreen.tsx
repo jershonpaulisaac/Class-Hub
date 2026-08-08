@@ -43,31 +43,31 @@ export function AuthScreen() {
   }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-slate-950 px-4 py-10">
+    <div className="relative flex min-h-screen items-center justify-center bg-slate-50 px-4 py-10">
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-sky-500/10 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-emerald-500/5 blur-3xl" />
+        <div className="absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-indigo-100 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-emerald-100 blur-3xl" />
       </div>
 
       <div className="relative w-full max-w-md animate-slide-up">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-800 bg-slate-900 shadow-lg shadow-sky-500/10">
-            <GraduationCap className="h-7 w-7 text-sky-400" />
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <GraduationCap className="h-7 w-7 text-indigo-600" />
           </div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-white">Class Hub</h1>
-          <p className="mt-1 text-sm text-slate-400">Your academic command center.</p>
+          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900">Class Hub</h1>
+          <p className="mt-1 text-sm text-slate-600">Your academic command center.</p>
         </div>
 
         {!configured && (
-          <div className="mb-6 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+          <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
             Supabase isn't configured. Add <code className="font-mono">VITE_SUPABASE_URL</code> and{' '}
             <code className="font-mono">VITE_SUPABASE_ANON_KEY</code> to your environment to enable
             sign-in.
           </div>
         )}
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 backdrop-blur-sm sm:p-8">
-          <div className="mb-6 grid grid-cols-2 gap-1 rounded-xl bg-slate-800/60 p-1">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm backdrop-blur-sm sm:p-8">
+          <div className="mb-6 grid grid-cols-2 gap-1 rounded-xl bg-slate-100 p-1">
             <button
               onClick={() => {
                 setMode('signin');
@@ -76,7 +76,7 @@ export function AuthScreen() {
               }}
               className={
                 'flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition ' +
-                (mode === 'signin' ? 'bg-slate-700 text-white shadow' : 'text-slate-400 hover:text-slate-200')
+                (mode === 'signin' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900')
               }
             >
               <LogIn className="h-4 w-4" /> Sign In
@@ -89,7 +89,7 @@ export function AuthScreen() {
               }}
               className={
                 'flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition ' +
-                (mode === 'signup' ? 'bg-slate-700 text-white shadow' : 'text-slate-400 hover:text-slate-200')
+                (mode === 'signup' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900')
               }
             >
               <UserPlus className="h-4 w-4" /> Sign Up
@@ -98,7 +98,7 @@ export function AuthScreen() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="mb-1.5 block text-xs font-medium text-slate-400">Email</label>
+              <label className="mb-1.5 block text-xs font-medium text-slate-600">Email</label>
               <div className="relative">
                 <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
                 <input
@@ -108,12 +108,12 @@ export function AuthScreen() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@college.edu"
                   disabled={!configured || busy}
-                  className="w-full rounded-xl border border-slate-700 bg-slate-800/60 py-2.5 pl-10 pr-3 text-sm text-white placeholder-slate-500 outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:opacity-50"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 disabled:opacity-50"
                 />
               </div>
             </div>
             <div>
-              <label className="mb-1.5 block text-xs font-medium text-slate-400">Password</label>
+              <label className="mb-1.5 block text-xs font-medium text-slate-600">Password</label>
               <input
                 type="password"
                 required
@@ -122,21 +122,21 @@ export function AuthScreen() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 disabled={!configured || busy}
-                className="w-full rounded-xl border border-slate-700 bg-slate-800/60 px-3 py-2.5 text-sm text-white placeholder-slate-500 outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:opacity-50"
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200 disabled:opacity-50"
               />
             </div>
 
             {error && (
-              <p className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-300">{error}</p>
+              <p className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700">{error}</p>
             )}
             {notice && (
-              <p className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-300">{notice}</p>
+              <p className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-700">{notice}</p>
             )}
 
             <button
               type="submit"
               disabled={!configured || busy}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-sky-500/20 transition hover:bg-sky-400 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {busy ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -150,15 +150,15 @@ export function AuthScreen() {
           </form>
 
           <div className="my-5 flex items-center gap-3">
-            <div className="h-px flex-1 bg-slate-800" />
+            <div className="h-px flex-1 bg-slate-200" />
             <span className="text-xs text-slate-500">or</span>
-            <div className="h-px flex-1 bg-slate-800" />
+            <div className="h-px flex-1 bg-slate-200" />
           </div>
 
           <button
             onClick={handleGoogle}
             disabled={!configured || busy}
-            className="flex w-full items-center justify-center gap-3 rounded-xl border border-slate-700 bg-slate-800/60 px-4 py-2.5 text-sm font-semibold text-slate-200 transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <GoogleIcon className="h-4 w-4" />
             Continue with Google

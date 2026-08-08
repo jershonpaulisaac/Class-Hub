@@ -52,7 +52,7 @@ export function EventsView() {
               onClick={() => setFilter(cat)}
               className={
                 'whitespace-nowrap rounded-full border px-3.5 py-1.5 text-xs font-semibold transition ' +
-                (active ? 'border-sky-500/40 bg-sky-500/10 text-sky-300' : 'border-slate-800 bg-slate-900/40 text-slate-400 hover:text-slate-200')
+                (active ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-slate-200 bg-white text-slate-600 hover:text-slate-900')
               }
             >
               {cat}
@@ -83,9 +83,9 @@ function EventCard({ ev, index }: { ev: CollegeEvent; index: number }) {
           <Badge tone={tone}>{ev.category}</Badge>
           <span className="text-xs text-slate-500">{formatDate(ev.event_date)}</span>
         </div>
-        <h3 className="text-lg font-bold text-white">{ev.title}</h3>
-        {ev.description && <p className="mt-1.5 line-clamp-3 text-sm text-slate-400">{ev.description}</p>}
-        <div className="mt-4 space-y-1.5 text-sm text-slate-400">
+        <h3 className="text-lg font-bold text-slate-900">{ev.title}</h3>
+        {ev.description && <p className="mt-1.5 line-clamp-3 text-sm text-slate-600">{ev.description}</p>}
+        <div className="mt-4 space-y-1.5 text-sm text-slate-600">
           <p className="flex items-center gap-2"><CalendarClock className="h-4 w-4 text-slate-500" /> {formatTime(ev.event_time)}</p>
           {ev.venue && <p className="flex items-center gap-2"><MapPin className="h-4 w-4 text-slate-500" /> {ev.venue}</p>}
           {ev.organizer && <p className="flex items-center gap-2"><Users className="h-4 w-4 text-slate-500" /> {ev.organizer}</p>}

@@ -49,7 +49,7 @@ export function NoticesView() {
               onClick={() => setFilter(f)}
               className={
                 'whitespace-nowrap rounded-full border px-3.5 py-1.5 text-xs font-semibold transition ' +
-                (active ? 'border-sky-500/40 bg-sky-500/10 text-sky-300' : 'border-slate-800 bg-slate-900/40 text-slate-400 hover:text-slate-200')
+                (active ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-slate-200 bg-white text-slate-600 hover:text-slate-900')
               }
             >
               {f}
@@ -74,7 +74,7 @@ export function NoticesView() {
 function NoticeRow({ n, index }: { n: Notice; index: number }) {
   const tone = PRIORITY_TONE[n.priority];
   const Icon = n.priority === 'Urgent' ? AlertCircle : n.priority === 'Exam' ? GraduationCap : Megaphone;
-  const iconTone = tone === 'rose' ? 'border-rose-500/30 bg-rose-500/10 text-rose-400' : tone === 'amber' ? 'border-amber-500/30 bg-amber-500/10 text-amber-400' : 'border-slate-700 bg-slate-800/60 text-slate-400';
+  const iconTone = tone === 'rose' ? 'border-rose-200 bg-rose-50 text-rose-700' : tone === 'amber' ? 'border-amber-200 bg-amber-50 text-amber-700' : 'border-slate-200 bg-slate-50 text-slate-700';
 
   return (
     <Card hover className="animate-slide-up p-5">
@@ -84,10 +84,10 @@ function NoticeRow({ n, index }: { n: Notice; index: number }) {
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <h3 className="text-base font-bold text-white">{n.title}</h3>
+            <h3 className="text-base font-bold text-slate-900">{n.title}</h3>
             <Badge tone={tone}>{n.priority}</Badge>
           </div>
-          <p className="mt-1.5 text-sm leading-relaxed text-slate-400">{n.content}</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{n.content}</p>
           <p className="mt-2 flex items-center gap-1.5 text-[11px] text-slate-500">
             <BookMarked className="h-3 w-3" /> Posted {formatDate(n.date_posted)}
           </p>

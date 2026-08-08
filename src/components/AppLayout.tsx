@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { LogOut } from 'lucide-react';
+import { LogOut, Moon, Sun } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { BRAND, NAV_ITEMS, type TabId } from '@/components/nav';
 import { initials } from '@/lib/utils';
@@ -7,26 +7,32 @@ import { initials } from '@/lib/utils';
 export function AppLayout({
   active,
   onNavigate,
+  theme,
+  onToggleTheme,
   children,
 }: {
   active: TabId;
   onNavigate: (id: TabId) => void;
+  theme: 'light' | 'dark';
+  onToggleTheme: () => void;
   children: ReactNode;
 }) {
   const { user, signOut } = useAuth();
   const displayName: string = user?.user_metadata?.full_name ?? user?.email ?? 'Student';
   const avatarUrl: string | undefined = user?.user_metadata?.avatar_url;
 
+  const isDark = theme === 'dark';
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className={isDark ? 'min-h-screen bg-[#020617] text-slate-100' : 'min-h-screen bg-slate-50 text-slate-900'}>
       {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-800 bg-slate-900/40 backdrop-blur-xl lg:flex">
-        <div className="flex h-16 items-center gap-2.5 border-b border-slate-800 px-5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-800 bg-slate-900">
-            <BRAND.icon className="h-5 w-5 text-sky-400" />
+      <aside className={isDark ? 'fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-800 bg-slate-900/95 shadow-[0_0_0_1px_rgba(30,41,59,0.6),0_10px_30px_rgba(2,6,23,0.35)] backdrop-blur-xl lg:flex' : 'fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-200 bg-white/90 shadow-sm backdrop-blur-xl lg:flex'}>
+        <div className={isDark ? 'flex h-16 items-center gap-2.5 border-b border-slate-800 px-5' : 'flex h-16 items-center gap-2.5 border-b border-slate-200 px-5'}>
+          <div className={isDark ? 'flex h-9 w-9 items-center justify-center rounded-xl border border-slate-700 bg-slate-800' : 'flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-slate-50'}>
+            <BRAND.icon className="h-5 w-5 text-indigo-600" />
           </div>
           <div>
-            <p className="text-sm font-extrabold tracking-tight text-white">{BRAND.name}</p>
+            <p className={isDark ? 'text-sm font-extrabold tracking-tight text-slate-100' : 'text-sm font-extrabold tracking-tight text-slate-900'}>{BRAND.name}</p>
             <p className="text-[10px] uppercase tracking-wider text-slate-500">Academic Hub</p>
           </div>
         </div>
@@ -42,29 +48,29 @@ export function AppLayout({
                 className={
                   'group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ' +
                   (isActive
-                    ? 'bg-sky-500/10 text-sky-300 shadow-sm ring-1 ring-sky-500/20'
-                    : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-200')
+                    ? (isDark ? 'bg-indigo-500/15 text-indigo-400 shadow-sm ring-1 ring-indigo-500/20' : 'bg-indigo-50 text-indigo-700 shadow-sm ring-1 ring-indigo-100')
+                    : (isDark ? 'text-slate-400 hover:bg-slate-800 hover:text-slate-100' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'))
                 }
               >
-                <Icon className={'h-4.5 w-4.5 shrink-0 transition ' + (isActive ? 'text-sky-400' : 'text-slate-500 group-hover:text-slate-300')} />
+                <Icon className={'h-4.5 w-4.5 shrink-0 transition ' + (isActive ? 'text-indigo-600' : (isDark ? 'text-slate-500 group-hover:text-slate-300' : 'text-slate-500 group-hover:text-slate-700'))} />
                 <span>{item.label}</span>
-                {isActive && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-sky-400" />}
+                {isActive && <span className="ml-auto h-1.5 w-1.5 rounded-full bg-indigo-600" />}
               </button>
             );
           })}
         </nav>
 
-        <div className="border-t border-slate-800 p-3">
-          <div className="flex items-center gap-3 rounded-xl bg-slate-800/40 px-3 py-2.5">
+        <div className={isDark ? 'border-t border-slate-800 p-3' : 'border-t border-slate-200 p-3'}>
+          <div className={isDark ? 'flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-2.5' : 'flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5'}>
             <Avatar url={avatarUrl} name={displayName} />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-xs font-semibold text-slate-200">{displayName}</p>
+              <p className={isDark ? 'truncate text-xs font-semibold text-slate-100' : 'truncate text-xs font-semibold text-slate-800'}>{displayName}</p>
               <p className="truncate text-[10px] text-slate-500">Signed in</p>
             </div>
             <button
               onClick={signOut}
               title="Sign out"
-              className="rounded-lg p-1.5 text-slate-500 transition hover:bg-slate-700 hover:text-rose-300"
+              className={isDark ? 'rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-800 hover:text-rose-400' : 'rounded-lg p-1.5 text-slate-500 transition hover:bg-slate-200 hover:text-rose-600'}
             >
               <LogOut className="h-4 w-4" />
             </button>
@@ -74,28 +80,36 @@ export function AppLayout({
 
       {/* Main column */}
       <div className="lg:pl-64">
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-800 bg-slate-950/80 px-4 backdrop-blur-xl sm:px-6">
+        <header className={isDark ? 'sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-800 bg-slate-900/95 px-4 shadow-[0_10px_30px_rgba(2,6,23,0.28)] backdrop-blur-xl sm:px-6' : 'sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 shadow-sm backdrop-blur-xl sm:px-6'}>
           <div className="flex items-center gap-2.5 lg:hidden">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-800 bg-slate-900">
-              <BRAND.icon className="h-4 w-4 text-sky-400" />
+            <div className={isDark ? 'flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-slate-800' : 'flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-slate-50'}>
+              <BRAND.icon className="h-4 w-4 text-indigo-600" />
             </div>
-            <span className="text-sm font-bold text-white">{BRAND.name}</span>
+            <span className={isDark ? 'text-sm font-bold text-slate-100' : 'text-sm font-bold text-slate-900'}>{BRAND.name}</span>
           </div>
           <div className="hidden lg:block">
-            <p className="text-sm font-semibold text-slate-300">{NAV_ITEMS.find((n) => n.id === active)?.label}</p>
+            <p className={isDark ? 'text-sm font-semibold text-slate-300' : 'text-sm font-semibold text-slate-700'}>{NAV_ITEMS.find((n) => n.id === active)?.label}</p>
           </div>
 
           <div className="flex items-center gap-3">
             <div className="hidden items-center gap-2.5 sm:flex">
               <div className="text-right">
-                <p className="max-w-[160px] truncate text-xs font-semibold text-slate-200">{displayName}</p>
+                <p className={isDark ? 'max-w-[160px] truncate text-xs font-semibold text-slate-100' : 'max-w-[160px] truncate text-xs font-semibold text-slate-800'}>{displayName}</p>
                 <p className="text-[10px] text-slate-500">{user?.email}</p>
               </div>
             </div>
             <Avatar url={avatarUrl} name={displayName} />
             <button
+              onClick={onToggleTheme}
+              className={isDark ? 'inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-950 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-slate-700 hover:bg-slate-800' : 'inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50'}
+              title={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+            >
+              {isDark ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+              <span className="hidden sm:inline">{isDark ? 'Light' : 'Dark'}</span>
+            </button>
+            <button
               onClick={signOut}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900 px-3 py-1.5 text-xs font-semibold text-slate-300 transition hover:border-rose-500/30 hover:text-rose-300"
+              className={isDark ? 'inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-950 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-slate-700 hover:bg-slate-800' : 'inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50'}
             >
               <LogOut className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Sign Out</span>
@@ -103,11 +117,11 @@ export function AppLayout({
           </div>
         </header>
 
-        <main className="px-4 pb-28 pt-6 sm:px-6 lg:px-8 lg:pb-10">{children}</main>
+        <main className={isDark ? 'bg-[#020617] px-4 pb-28 pt-6 sm:px-6 lg:px-8 lg:pb-10' : 'bg-slate-50 px-4 pb-28 pt-6 sm:px-6 lg:px-8 lg:pb-10'}>{children}</main>
       </div>
 
       {/* Mobile bottom nav */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-800 bg-slate-950/95 backdrop-blur-xl lg:hidden">
+      <nav className={isDark ? 'fixed inset-x-0 bottom-0 z-40 border-t border-slate-800 bg-slate-900/95 shadow-[0_-10px_25px_rgba(2,6,23,0.2)] backdrop-blur-xl lg:hidden' : 'fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 shadow-sm backdrop-blur-xl lg:hidden'}>
         <div className="no-scrollbar flex items-center gap-1 overflow-x-auto px-2 py-1.5">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
@@ -118,7 +132,7 @@ export function AppLayout({
                 onClick={() => onNavigate(item.id)}
                 className={
                   'flex min-w-[64px] flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-[10px] font-medium transition ' +
-                  (isActive ? 'text-sky-400' : 'text-slate-500 hover:text-slate-300')
+                  (isActive ? (isDark ? 'text-indigo-400' : 'text-indigo-700') : (isDark ? 'text-slate-500 hover:text-slate-200' : 'text-slate-500 hover:text-slate-700'))
                 }
               >
                 <Icon className="h-5 w-5" />
@@ -139,7 +153,7 @@ function Avatar({ url, name }: { url?: string; name: string }) {
     );
   }
   return (
-    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-xs font-bold text-sky-300">
+    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-xs font-bold text-indigo-400">
       {initials(name)}
     </div>
   );

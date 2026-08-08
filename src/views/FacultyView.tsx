@@ -39,7 +39,7 @@ export function FacultyView() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by name, department, or designation…"
-          className="w-full rounded-xl border border-slate-800 bg-slate-900/60 py-3 pl-10 pr-4 text-sm text-white placeholder-slate-500 outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+          className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200"
         />
       </div>
 
@@ -64,17 +64,17 @@ function FacultyCard({ f, index }: { f: Faculty; index: number }) {
     <Card hover className="animate-slide-up flex flex-col p-5">
       <div style={{ animationDelay: `${index * 60}ms` }}>
         <div className="flex items-start gap-4">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-sky-300">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-sm font-bold text-indigo-700">
             {initials(f.name)}
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="truncate text-base font-bold text-white">{f.name}</h3>
-            <p className="text-sm text-slate-400">{f.designation}</p>
+            <h3 className="truncate text-base font-bold text-slate-900">{f.name}</h3>
+            <p className="text-sm text-slate-600">{f.designation}</p>
             <Badge tone="sky" className="mt-1.5">{f.department}</Badge>
           </div>
         </div>
 
-        <div className="mt-4 space-y-1.5 text-sm text-slate-400">
+        <div className="mt-4 space-y-1.5 text-sm text-slate-600">
           {f.cabin_location && <p className="flex items-center gap-2"><MapPin className="h-4 w-4 text-slate-500" /> {f.cabin_location}</p>}
           {f.email && <p className="flex items-center gap-2 truncate"><Mail className="h-4 w-4 text-slate-500" /> {f.email}</p>}
         </div>
@@ -82,7 +82,7 @@ function FacultyCard({ f, index }: { f: Faculty; index: number }) {
         <div className="mt-5 flex flex-wrap gap-2">
           {wa ? (
             <a href={wa} target="_blank" rel="noopener noreferrer">
-              <Button variant="primary" className="bg-emerald-500 text-white hover:bg-emerald-400 border-emerald-400/50 shadow-emerald-500/20">
+              <Button variant="primary" className="bg-indigo-600 text-white hover:bg-indigo-700 border-indigo-600">
                 <WhatsAppGlyph className="h-4 w-4" /> WhatsApp
               </Button>
             </a>

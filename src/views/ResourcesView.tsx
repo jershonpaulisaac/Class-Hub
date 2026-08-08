@@ -48,7 +48,7 @@ export function ResourcesView() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by title, subject, or unit…"
-          className="w-full rounded-xl border border-slate-800 bg-slate-900/60 py-3 pl-10 pr-4 text-sm text-white placeholder-slate-500 outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+          className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-200"
         />
       </div>
 
@@ -62,7 +62,7 @@ export function ResourcesView() {
                 onClick={() => setSubject(s)}
                 className={
                   'whitespace-nowrap rounded-full border px-3.5 py-1.5 text-xs font-semibold transition ' +
-                  (active ? 'border-sky-500/40 bg-sky-500/10 text-sky-300' : 'border-slate-800 bg-slate-900/40 text-slate-400 hover:text-slate-200')
+                  (active ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-slate-200 bg-white text-slate-600 hover:text-slate-900')
                 }
               >
                 {s}
@@ -90,11 +90,11 @@ function ResourceCard({ r, index }: { r: Resource; index: number }) {
     <Card hover className="animate-slide-up flex flex-col p-5">
       <div style={{ animationDelay: `${index * 50}ms` }}>
         <div className="mb-3 flex items-start gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-700 bg-slate-800/60">
-            <BookMarked className="h-5 w-5 text-sky-400" />
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-50">
+            <BookMarked className="h-5 w-5 text-indigo-600" />
           </div>
           <div className="min-w-0">
-            <h3 className="text-sm font-bold leading-snug text-white">{r.title}</h3>
+            <h3 className="text-sm font-bold leading-snug text-slate-900">{r.title}</h3>
             <p className="mt-0.5 text-xs text-slate-500">{r.subject_name}</p>
           </div>
         </div>

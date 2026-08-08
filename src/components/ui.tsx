@@ -13,8 +13,8 @@ export function Card({
   return (
     <div
       className={
-        'rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-sm ' +
-        (hover ? 'transition-all duration-300 hover:border-slate-700 hover:bg-slate-900 ' : '') +
+        'rounded-2xl border border-slate-200 bg-white shadow-sm ' +
+        (hover ? 'transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 ' : '') +
         className
       }
     >
@@ -26,12 +26,12 @@ export function Card({
 type BadgeTone = 'slate' | 'sky' | 'amber' | 'rose' | 'emerald' | 'violet';
 
 const TONE_CLASSES: Record<BadgeTone, string> = {
-  slate: 'bg-slate-800 text-slate-300 border-slate-700',
-  sky: 'bg-sky-500/10 text-sky-300 border-sky-500/30',
-  amber: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
-  rose: 'bg-rose-500/10 text-rose-300 border-rose-500/30',
-  emerald: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
-  violet: 'bg-violet-500/10 text-violet-300 border-violet-500/30',
+  slate: 'bg-slate-100 text-slate-700 border-slate-200',
+  sky: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+  amber: 'bg-amber-50 text-amber-700 border-amber-200',
+  rose: 'bg-rose-50 text-rose-700 border-rose-200',
+  emerald: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  violet: 'bg-violet-50 text-violet-700 border-violet-200',
 };
 
 export function Badge({
@@ -71,10 +71,10 @@ export function SectionTitle({
   return (
     <div className="flex items-end justify-between gap-4">
       <div className="flex items-center gap-3">
-        {icon && <div className="text-sky-400">{icon}</div>}
+        {icon && <div className="text-indigo-600">{icon}</div>}
         <div>
-          <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl">{title}</h2>
-          {subtitle && <p className="mt-0.5 text-sm text-slate-400">{subtitle}</p>}
+          <h2 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">{title}</h2>
+          {subtitle && <p className="mt-0.5 text-sm text-slate-600">{subtitle}</p>}
         </div>
       </div>
       {action}
@@ -92,11 +92,11 @@ export function EmptyState({
   icon?: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-800 bg-slate-900/30 px-6 py-14 text-center">
-      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-slate-800/80 text-slate-500">
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-6 py-14 text-center">
+      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-indigo-50 text-indigo-600">
         {icon ?? <Inbox className="h-6 w-6" />}
       </div>
-      <p className="text-sm font-semibold text-slate-300">{title}</p>
+      <p className="text-sm font-semibold text-slate-800">{title}</p>
       {message && <p className="mt-1 max-w-sm text-xs text-slate-500">{message}</p>}
     </div>
   );
@@ -104,19 +104,19 @@ export function EmptyState({
 
 export function ErrorState({ message }: { message: string }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-rose-500/30 bg-rose-500/5 px-6 py-12 text-center">
-      <AlertTriangle className="mb-3 h-7 w-7 text-rose-400" />
-      <p className="text-sm font-semibold text-rose-300">Something went wrong</p>
-      <p className="mt-1 max-w-sm text-xs text-rose-400/70">{message}</p>
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-rose-200 bg-rose-50 px-6 py-12 text-center">
+      <AlertTriangle className="mb-3 h-7 w-7 text-rose-600" />
+      <p className="text-sm font-semibold text-rose-700">Something went wrong</p>
+      <p className="mt-1 max-w-sm text-xs text-rose-600">{message}</p>
     </div>
   );
 }
 
 export function LoadingState({ label = 'Loading…' }: { label?: string }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-slate-800 bg-slate-900/30 px-6 py-14">
-      <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-700 border-t-sky-400" />
-      <p className="mt-3 text-sm text-slate-500">{label}</p>
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 px-6 py-14">
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-300 border-t-indigo-600" />
+      <p className="mt-3 text-sm text-slate-600">{label}</p>
     </div>
   );
 }
@@ -124,10 +124,10 @@ export function LoadingState({ label = 'Loading…' }: { label?: string }) {
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 
 const BUTTON_CLASSES: Record<ButtonVariant, string> = {
-  primary: 'bg-sky-500 text-white hover:bg-sky-400 border border-sky-400/50 shadow-lg shadow-sky-500/20',
-  secondary: 'bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700',
-  ghost: 'bg-transparent text-slate-300 hover:bg-slate-800/60 border border-transparent',
-  danger: 'bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 border border-rose-500/30',
+  primary: 'bg-indigo-600 text-white hover:bg-indigo-700 border border-indigo-600 shadow-sm',
+  secondary: 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200 shadow-sm',
+  ghost: 'bg-transparent text-slate-600 hover:bg-slate-100 border border-transparent',
+  danger: 'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200',
 };
 
 export function Button({
