@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CalendarDays, Clock, DoorOpen, User } from 'lucide-react';
 import { supabase, type Timetable } from '@/lib/supabase';
-import { DAYS, formatTime, todayDow } from '@/lib/utils';
+import { formatTime, todayDow } from '@/lib/utils';
 import { Badge, Card, EmptyState, ErrorState, LoadingState, SectionTitle } from '@/components/ui';
 
-const TABS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const;
+// 1. Added Saturday to the supported tabs
+const TABS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as const;
 type WeekDay = (typeof TABS)[number];
 
 export function TimetableView() {
@@ -12,7 +13,7 @@ export function TimetableView() {
   const [error, setError] = useState<string | null>(null);
   const [day, setDay] = useState<WeekDay>(() => {
     const dow = todayDow();
-    if (dow >= 1 && dow <= 5) return TABS[dow - 1];
+    if (dow >= 1 && dow <= 6) return TABS[dow - 1];
     return 'Monday';
   });
 
@@ -27,26 +28,28 @@ export function TimetableView() {
     return () => { cancelled = true; };
   }, []);
 
-  const dayIndex = TABS.indexOf(day) + 1;
+  // 2. Fixed filter: Compare string names case-insensitively instead of matching numbers
   const dayClasses = useMemo(
-    () => (rows ?? []).filter((r) => r.day_of_week === dayIndex).sort((a, b) => a.start_time.localeCompare(b.start_time)),
-    [rows, dayIndex],
+    () => (rows ?? [])
+      .filter((r) => String(r.day_of_week).toLowerCase() === day.toLowerCase())
+      .sort((a, b) => a.start_time.localeCompare(b.start_time)),
+    [rows, day],
   );
 
   if (error) return <ErrorState message={error} />;
   if (rows === null) return <LoadingState label="Loading timetable…" />;
 
-  const isToday = dayIndex === todayDow();
+  const currentDowIndex = todayDow();
+  const isToday = currentDowIndex >= 1 && currentDowIndex <= 6 && TABS[currentDowIndex - 1] === day;
 
   return (
     <div className="space-y-6">
-      <SectionTitle title="Weekly Timetable" subtitle="Your class schedule, Monday through Friday." icon={<CalendarDays className="h-5 w-5" />} />
+      <SectionTitle title="Weekly Timetable" subtitle="Your class schedule, Monday through Saturday." icon={<CalendarDays className="h-5 w-5" />} />
 
       <div className="no-scrollbar -mx-1 flex gap-1.5 overflow-x-auto px-1">
-        {DAYS.map((_, i) => {
-          if (i < 1 || i > 5) return null;
-          const wd = TABS[i - 1];
+        {TABS.map((wd, i) => {
           const active = day === wd;
+          const isCurrentDay = i + 1 === currentDowIndex;
           return (
             <button
               key={wd}
@@ -57,7 +60,7 @@ export function TimetableView() {
               }
             >
               {wd}
-              {i === todayDow() && <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-sky-400 ring-2 ring-slate-950" />}
+              {isCurrentDay && <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-sky-400 ring-2 ring-slate-950" />}
             </button>
           );
         })}
