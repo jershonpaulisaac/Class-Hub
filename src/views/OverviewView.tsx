@@ -34,8 +34,8 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
       const today = new Date().toISOString().slice(0, 10);
       const [tt, ev, no] = await Promise.all([
         supabase.from('timetable').select('*, faculty(*)').order('day_of_week').order('start_time'),
-        supabase.from('events').select('*').gte('event_date', today).order('event_date'),
-        supabase.from('notices').select('*').order('date_posted', { ascending: false }).limit(6),
+        supabase.from('events').select('*').gte('event_date', today).order('event_date').limit(4),
+        supabase.from('notices').select('*').order('date_posted', { ascending: false }).limit(3),
       ]);
       if (cancelled) return;
       if (tt.error || ev.error || no.error) {
@@ -96,7 +96,7 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
               ) : (
                 <EmptyState
                   title={isWeekend ? "It's the weekend" : 'No more classes today'}
-                  message="Enjoy the break and check your upcoming notices."
+                  message="Enjoy the break and check your upcoming events or notices."
                   icon={<CalendarClock className="h-6 w-6" />}
                 />
               )}
@@ -132,10 +132,11 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
           )}
         </div>
 
-        {/* Dedicated Notices Column */}
+        {/* Combined Notices & Events Column */}
         <div className="space-y-6">
+          {/* Campus Notices */}
           <Card className="p-0">
-            <div className="flex items-center justify-between border-b border-slate-800 px-5 py-3.5">
+            <div className="flex items-center justify-between border-b border-slate-800 px-5 py-3">
               <h2 className="flex items-center gap-2 text-sm font-bold text-white">
                 <Megaphone className="h-4 w-4 text-rose-400" /> Campus Notices
               </h2>
@@ -145,16 +146,45 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
             </div>
             <div className="divide-y divide-slate-800">
               {(notices ?? []).length === 0 ? (
-                <p className="px-5 py-8 text-center text-xs text-slate-400">No active notices.</p>
+                <p className="px-5 py-6 text-center text-xs text-slate-400">No active notices.</p>
               ) : (
                 (notices ?? []).map((n) => (
                   <div key={n.id} className="p-4 transition-colors hover:bg-slate-900/40">
-                    <div className="mb-1.5 flex items-center justify-between gap-2">
+                    <div className="mb-1 flex items-center justify-between gap-2">
                       <PriorityBadge priority={n.priority} />
                       <span className="text-[10px] text-slate-400">{formatDate(n.date_posted)}</span>
                     </div>
                     <p className="text-sm font-semibold text-white">{n.title}</p>
-                    <p className="mt-1 line-clamp-3 text-xs leading-relaxed text-slate-400">{n.content}</p>
+                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-slate-400">{n.content}</p>
+                  </div>
+                ))
+              )}
+            </div>
+          </Card>
+
+          {/* Upcoming Events List */}
+          <Card className="p-0">
+            <div className="flex items-center justify-between border-b border-slate-800 px-5 py-3">
+              <h2 className="flex items-center gap-2 text-sm font-bold text-white">
+                <Trophy className="h-4 w-4 text-emerald-400" /> Upcoming Events
+              </h2>
+              <button onClick={() => onNavigate('events')} className="text-xs text-indigo-400 hover:underline">
+                Explore
+              </button>
+            </div>
+            <div className="divide-y divide-slate-800">
+              {(events ?? []).length === 0 ? (
+                <p className="px-5 py-6 text-center text-xs text-slate-400">No upcoming events.</p>
+              ) : (
+                (events ?? []).map((e) => (
+                  <div key={e.id} className="flex items-center justify-between gap-3 px-5 py-3 hover:bg-slate-900/40 transition-colors">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold text-white">{e.title}</p>
+                      <p className="truncate text-xs text-slate-400">{e.venue}</p>
+                    </div>
+                    <span className="shrink-0 rounded-lg bg-emerald-500/10 px-2 py-1 text-[10px] font-bold text-emerald-300 border border-emerald-500/20">
+                      {formatDate(e.event_date)}
+                    </span>
                   </div>
                 ))
               )}
