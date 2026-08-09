@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { LogOut, Moon, Sun } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { BRAND, NAV_ITEMS, type TabId } from '@/components/nav';
 import { initials } from '@/lib/utils';
@@ -28,8 +28,9 @@ export function AppLayout({
       {/* Desktop sidebar */}
       <aside className={isDark ? 'fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-800 bg-slate-900/95 shadow-[0_0_0_1px_rgba(30,41,59,0.6),0_10px_30px_rgba(2,6,23,0.35)] backdrop-blur-xl lg:flex' : 'fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-200 bg-white/90 shadow-sm backdrop-blur-xl lg:flex'}>
         <div className={isDark ? 'flex h-16 items-center gap-2.5 border-b border-slate-800 px-5' : 'flex h-16 items-center gap-2.5 border-b border-slate-200 px-5'}>
-          <div className={isDark ? 'flex h-9 w-9 items-center justify-center rounded-xl border border-slate-700 bg-slate-800' : 'flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-slate-50'}>
-            <BRAND.icon className="h-5 w-5 text-indigo-600" />
+          {/* Custom Image Logo */}
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl">
+            <img src="/logo.png" alt="Class Hub Logo" className="h-full w-full object-contain" />
           </div>
           <div>
             <p className={isDark ? 'text-sm font-extrabold tracking-tight text-slate-100' : 'text-sm font-extrabold tracking-tight text-slate-900'}>{BRAND.name}</p>
@@ -81,12 +82,14 @@ export function AppLayout({
       {/* Main column */}
       <div className="lg:pl-64">
         <header className={isDark ? 'sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-800 bg-slate-900/95 px-4 shadow-[0_10px_30px_rgba(2,6,23,0.28)] backdrop-blur-xl sm:px-6' : 'sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 shadow-sm backdrop-blur-xl sm:px-6'}>
+          {/* Mobile Header Brand */}
           <div className="flex items-center gap-2.5 lg:hidden">
-            <div className={isDark ? 'flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-slate-800' : 'flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-slate-50'}>
-              <BRAND.icon className="h-4 w-4 text-indigo-600" />
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg">
+              <img src="/logo.png" alt="Class Hub Logo" className="h-full w-full object-contain" />
             </div>
             <span className={isDark ? 'text-sm font-bold text-slate-100' : 'text-sm font-bold text-slate-900'}>{BRAND.name}</span>
           </div>
+
           <div className="hidden lg:block">
             <p className={isDark ? 'text-sm font-semibold text-slate-300' : 'text-sm font-semibold text-slate-700'}>{NAV_ITEMS.find((n) => n.id === active)?.label}</p>
           </div>
