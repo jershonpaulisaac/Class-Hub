@@ -50,12 +50,12 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
   }, []);
 
   const userName = user?.user_metadata?.full_name ?? user?.email ?? 'Student';
+  const firstName = userName.split(' ')[0].split('@')[0];
   const todayClasses = (timetable ?? []).filter((c) => String(c.day_of_week).toLowerCase() === String(todayDow()).toLowerCase() || c.day_of_week === todayDow());
   const now = nowHHMM();
   const inProgress = todayClasses.find((c) => c.start_time <= now && c.end_time > now) ?? null;
   const nextUp = todayClasses.find((c) => c.start_time >= now) ?? null;
   const spotlight = (events ?? []).find((e) => daysUntil(e.event_date) >= 0) ?? null;
-  const urgentNotices = (notices ?? []).filter((n) => n.priority === 'Urgent');
   const isWeekend = todayDow() === 0 || todayDow() === 6;
 
   if (error) return <ErrorState message={error} />;
@@ -67,7 +67,7 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
       <div className="animate-fade-in">
         <p className="text-sm text-slate-400">{formatFullDate(clock)}</p>
         <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
-          {greeting()}, {userName.split(' ')[0].split('@')[0]}.
+          {greeting()}, {firstName}.
         </h1>
         <p className="mt-1 flex items-center gap-2 text-sm text-slate-400">
           <CalendarClock className="h-4 w-4 text-indigo-400" />
@@ -75,11 +75,23 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <StatCard label="Today's Classes" value={todayClasses.length} icon={<BookOpen className="h-4 w-4" />} />
-        <StatCard label="Upcoming Events" value={(events ?? []).length} icon={<Trophy className="h-4 w-4" />} tone="emerald" />
-        <StatCard label="Urgent Notices" value={urgentNotices.length} icon={<Megaphone className="h-4 w-4" />} tone="rose" />
-      </div>
+      {/* Replaced 3 Stat Boxes with a Welcome Banner */}
+      <Card className="border-indigo-500/20 bg-gradient-to-r from-indigo-900/30 via-slate-900 to-slate-900 p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-lg font-bold text-white">Welcome back to Class Hub, {firstName}! 👋</h2>
+            <p className="mt-1 text-sm text-slate-300">
+              Stay on top of your daily schedule, upcoming events, and official department notices all in one place.
+            </p>
+          </div>
+          <button
+            onClick={() => onNavigate('timetable')}
+            className="mt-2 sm:mt-0 shrink-0 rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-indigo-500"
+          >
+            View Timetable →
+          </button>
+        </div>
+      </Card>
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
@@ -231,25 +243,6 @@ function NextClassCard({ cls, live = false }: { cls: Timetable; live?: boolean }
         <p className="text-sm font-semibold text-slate-300">{formatTime(cls.end_time)}</p>
       </div>
     </div>
-  );
-}
-
-type Tone = 'sky' | 'emerald' | 'rose';
-const TONES: Record<Tone, string> = {
-  sky: 'bg-indigo-500/15 text-indigo-300',
-  emerald: 'bg-emerald-500/15 text-emerald-300',
-  rose: 'bg-rose-500/15 text-rose-300',
-};
-
-function StatCard({ label, value, icon, tone = 'sky' }: { label: string; value: number; icon: React.ReactNode; tone?: Tone }) {
-  return (
-    <Card className="flex items-center gap-3 p-4">
-      <div className={'flex h-9 w-9 items-center justify-center rounded-lg ' + TONES[tone]}>{icon}</div>
-      <div>
-        <p className="text-xl font-extrabold text-white">{value}</p>
-        <p className="text-[11px] text-slate-400">{label}</p>
-      </div>
-    </Card>
   );
 }
 
