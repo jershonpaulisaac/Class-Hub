@@ -14,7 +14,7 @@ const LINKS: CommunityLink[] = [
   {
     title: 'Class WhatsApp Group',
     description: 'The main group for day-to-day chat, doubts, and banter with your batch.',
-    href: 'https://chat.whatsapp.com/your-class-group',
+    href: 'https://chat.whatsapp.com/KFslQmDh0kfJOqwl7JclYJ?s=cl&p=a&ilr=0',
     cta: 'Open Group',
     icon: MessageCircle,
     tone: 'emerald',
@@ -22,7 +22,7 @@ const LINKS: CommunityLink[] = [
   {
     title: 'Announcement Channel',
     description: 'Broadcast-only channel for official class and college announcements.',
-    href: 'https://whatsapp.com/channel/your-announcement-channel',
+    href: 'https://whatsapp.com/channel/0029VbDTEhV72WTyllxNuu3C',
     cta: 'Join Channel',
     icon: Send,
     tone: 'sky',
