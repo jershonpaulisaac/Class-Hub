@@ -24,11 +24,11 @@ function AuthedApp() {
       {tab === 'timetable' && <TimetableView />}
       {tab === 'faculty' && <FacultyView />}
       {tab === 'events' && <EventsView />}
-      {tab === 'resources' && <ResourcesView />}
-      {tab === 'assignments' && <AssignmentsView />}
+      {/*tab === 'resources' && <ResourcesView />}
+      {tab === 'assignments' && <AssignmentsView />*/}
       {tab === 'notices' && <NoticesView />}
       {tab === 'community' && <CommunityView />}
-      {tab === 'notes' && <NotesView />}
+      {/*tab === 'notes' && <NotesView /*/>}
       {tab === 'profile' && <ProfileView />}
     </AppLayout>
   );
