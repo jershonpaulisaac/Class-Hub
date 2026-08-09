@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { MapPin, Search, User, Users } from 'lucide-react';
+import { Search, User, Users } from 'lucide-react';
 import { supabase, type Faculty } from '@/lib/supabase';
 import { initials } from '@/lib/utils';
 import { Badge, Card, EmptyState, ErrorState, LoadingState, SectionTitle } from '@/components/ui';
@@ -12,10 +12,10 @@ export function FacultyView() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      // 🔒 Query only safe, non-contact fields from Supabase
+      // 🔒 Select only existing columns (cabin_location removed)
       const { data, error } = await supabase
         .from('faculty')
-        .select('id, name, designation, department, cabin_location')
+        .select('id, name, designation, department')
         .order('name');
 
       if (cancelled) return;
@@ -38,7 +38,7 @@ export function FacultyView() {
 
   return (
     <div className="space-y-6">
-      <SectionTitle title="Faculty Directory" subtitle="Find department staff and cabin locations." icon={<Users className="h-5 w-5" />} />
+      <SectionTitle title="Faculty Directory" subtitle="Find department staff and faculty details." icon={<Users className="h-5 w-5" />} />
 
       <div className="relative">
         <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
@@ -77,14 +77,6 @@ function FacultyCard({ f, index }: { f: Faculty; index: number }) {
             <Badge tone="sky" className="mt-1.5">{f.department}</Badge>
           </div>
         </div>
-
-        {f.cabin_location && (
-          <div className="mt-4 text-sm text-slate-600">
-            <p className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-slate-500" /> {f.cabin_location}
-            </p>
-          </div>
-        )}
       </div>
     </Card>
   );
