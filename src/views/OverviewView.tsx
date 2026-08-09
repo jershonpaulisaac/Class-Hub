@@ -75,23 +75,7 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
         </p>
       </div>
 
-      {/* Replaced 3 Stat Boxes with a Welcome Banner */}
-      <Card className="border-indigo-500/20 bg-gradient-to-r from-indigo-900/30 via-slate-900 to-slate-900 p-6">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-lg font-bold text-white">Welcome back to Class Hub, {firstName}! 👋</h2>
-            <p className="mt-1 text-sm text-slate-300">
-              Stay on top of your daily schedule, upcoming events, and official department notices all in one place.
-            </p>
-          </div>
-          <button
-            onClick={() => onNavigate('timetable')}
-            className="mt-2 sm:mt-0 shrink-0 rounded-xl bg-indigo-600 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-indigo-500"
-          >
-            View Timetable →
-          </button>
-        </div>
-      </Card>
+      
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
