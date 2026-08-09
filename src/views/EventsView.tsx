@@ -79,7 +79,7 @@ export function EventsView() {
 function EventCard({ ev, index }: { ev: CollegeEvent; index: number }) {
   const tone = CATEGORY_TONE[ev.category];
 
-  // Helper to determine whether to display time or fall back to date
+  // Primary event schedule display (Time or Date)
   const displayTimeOrDate = () => {
     if (ev.event_time) {
       const formatted = formatTime(ev.event_time);
@@ -93,21 +93,30 @@ function EventCard({ ev, index }: { ev: CollegeEvent; index: number }) {
       <div style={{ animationDelay: `${index * 60}ms` }} className="flex flex-1 flex-col p-5">
         <div className="mb-3 flex items-start justify-between gap-3">
           <Badge tone={tone}>{ev.category}</Badge>
-          <span className="text-xs text-slate-400">{formatDate(ev.event_date)}</span>
+          
+          {/* Top-Right Corner: Created Date */}
+          <span className="text-[11px] text-slate-400 font-medium">
+            Posted {formatDate(ev.created_at ?? ev.event_date)}
+          </span>
         </div>
+
         <h3 className="text-lg font-bold text-white">{ev.title}</h3>
         {ev.description && <p className="mt-1.5 line-clamp-3 text-sm text-slate-400">{ev.description}</p>}
+
         <div className="mt-4 space-y-1.5 text-sm text-slate-300">
+          {/* Main Card Body: Scheduled Event Date/Time */}
           <p className="flex items-center gap-2">
             <CalendarClock className="h-4 w-4 text-indigo-400 shrink-0" /> 
             <span>{displayTimeOrDate()}</span>
           </p>
+
           {ev.venue && (
             <p className="flex items-center gap-2">
               <MapPin className="h-4 w-4 text-indigo-400 shrink-0" /> 
               <span>{ev.venue}</span>
             </p>
           )}
+
           {ev.organizer && (
             <p className="flex items-center gap-2">
               <Users className="h-4 w-4 text-indigo-400 shrink-0" /> 
@@ -115,6 +124,7 @@ function EventCard({ ev, index }: { ev: CollegeEvent; index: number }) {
             </p>
           )}
         </div>
+
         {ev.registration_link && (
           <a href={ev.registration_link} target="_blank" rel="noopener noreferrer" className="mt-auto pt-5">
             <Button variant="primary" className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white">
