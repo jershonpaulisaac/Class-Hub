@@ -45,6 +45,7 @@ function Gate() {
 
   useEffect(() => {
     let isMounted = true;
+
     async function checkApprovalStatus() {
       if (!user) {
         setIsApproved(null);
@@ -52,28 +53,45 @@ function Gate() {
         return;
       }
 
+      setCheckingApproval(true);
+
       // Query profiles table for approval flag
-      const { data, error } = await supabase
+      let { data, error } = await supabase
         .from('profiles')
         .select('approved')
         .eq('id', user.id)
         .maybeSingle();
 
+      // If profile row was deleted or is missing, auto-recreate it with approved = false
+      if (!data && !error) {
+        const { data: newProfile } = await supabase
+          .from('profiles')
+          .upsert({
+            id: user.id,
+            email: user.email!,
+            full_name: user.user_metadata?.full_name ?? user.user_metadata?.name ?? 'Student',
+            avatar_url: user.user_metadata?.avatar_url,
+            approved: false,
+          })
+          .select('approved')
+          .single();
+
+        data = newProfile;
+      }
+
       if (isMounted) {
-        if (error || !data) {
-          // Default to false if profile record is pending creation
-          setIsApproved(false);
-        } else {
-          setIsApproved(Boolean(data.approved));
-        }
+        setIsApproved(data ? Boolean(data.approved) : false);
         setCheckingApproval(false);
       }
     }
 
     checkApprovalStatus();
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   }, [user]);
 
+  // Keep loading screen visible while auth or database checks are running
   if (loading || (user && checkingApproval)) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-[#0b0f19] text-slate-100">
