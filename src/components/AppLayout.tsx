@@ -65,7 +65,7 @@ export function AppLayout({
         </nav>
 
         {/* Sidebar Footer User Card */}
-        <div className={isDark ? 'border-t border-slate-800 p-3' : 'border-t border-slate-200 p-3'}>
+        <div className={isDark ? 'border-t border-slate-800 p-3 space-y-2' : 'border-t border-slate-200 p-3 space-y-2'}>
           <div className={isDark ? 'flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-2.5' : 'flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5'}>
             <Avatar url={avatarUrl} name={displayName} />
             <div className="min-w-0 flex-1">
@@ -82,20 +82,32 @@ export function AppLayout({
               <LogOut className="h-4 w-4" />
             </button>
           </div>
+          <div className="text-center pt-1">
+            <p className="text-[10px] text-slate-500">
+              Designed & Developed by <span className="font-bold text-indigo-400">Jershon Paul Isaac R</span>
+            </p>
+          </div>
         </div>
       </aside>
 
       {/* Main Column */}
       <div className="lg:pl-64">
         {/* REFINED HEADER BAR */}
-        <header className={isDark ? 'sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-800/80 bg-slate-950/80 px-4 backdrop-blur-md sm:px-6' : 'sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/80 px-4 backdrop-blur-md sm:px-6'}>
+        <header className={isDark ? 'sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-800/80 bg-[#020617]/90 px-4 backdrop-blur-xl sm:px-6' : 'sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur-xl sm:px-6'}>
           
           {/* Left: Mobile Brand Header */}
-          <div className="flex items-center gap-2.5 lg:hidden">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-indigo-500/10 p-0.5 border border-indigo-500/20">
+          <div className="flex items-center gap-3 lg:hidden">
+            <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-800/80 p-1.5 border border-slate-700/60 shadow-inner">
               <img src="/logo.png" alt="Class Hub Logo" className="h-full w-full object-contain" />
             </div>
-            <span className={isDark ? 'text-sm font-bold text-slate-100' : 'text-sm font-bold text-slate-900'}>{BRAND.name}</span>
+            <div className="flex flex-col">
+              <span className="text-base font-black tracking-tight text-white font-sans">
+                Class<span className="text-indigo-400">Hub</span>
+              </span>
+              <span className="text-[9px] font-bold uppercase tracking-widest text-indigo-400/80 -mt-1">
+                Academic Portal
+              </span>
+            </div>
           </div>
 
           {/* Left: Desktop View Title */}
@@ -106,9 +118,8 @@ export function AppLayout({
           </div>
 
           {/* Right: User Profile + Sign Out Controls */}
-          <div className="flex items-center gap-3">
-            {/* User Info Badge */}
-            <div className={isDark ? 'flex items-center gap-2.5 rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-1.5' : 'flex items-center gap-2.5 rounded-xl border border-slate-200 bg-slate-100/70 px-3 py-1.5'}>
+          <div className="flex items-center gap-2.5">
+            <div className={isDark ? 'flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/80 p-1.5 sm:px-3 sm:py-1.5' : 'flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-100/70 p-1.5 sm:px-3 sm:py-1.5'}>
               <Avatar url={avatarUrl} name={displayName} />
               <div className="hidden text-left sm:block">
                 <p className={isDark ? 'max-w-[140px] truncate text-xs font-semibold text-slate-100' : 'max-w-[140px] truncate text-xs font-semibold text-slate-800'}>{displayName}</p>
@@ -116,14 +127,13 @@ export function AppLayout({
               </div>
             </div>
 
-            {/* Direct Sign Out Button */}
             <button
               onClick={signOut}
               title="Sign Out"
-              className={isDark ? 'flex h-9 items-center gap-1.5 rounded-xl border border-rose-500/20 bg-rose-500/10 px-3 text-xs font-semibold text-rose-400 transition hover:bg-rose-500 hover:text-white' : 'flex h-9 items-center gap-1.5 rounded-xl border border-rose-200 bg-rose-50 px-3 text-xs font-semibold text-rose-600 transition hover:bg-rose-600 hover:text-white'}
+              className={isDark ? 'flex h-9 w-9 items-center justify-center rounded-xl border border-rose-500/20 bg-rose-500/10 text-rose-400 transition hover:bg-rose-500 hover:text-white sm:w-auto sm:px-3' : 'flex h-9 w-9 items-center justify-center rounded-xl border border-rose-200 bg-rose-50 text-rose-600 transition hover:bg-rose-600 hover:text-white sm:w-auto sm:px-3'}
             >
-              <LogOut className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">Sign Out</span>
+              <LogOut className="h-4 w-4" />
+              <span className="hidden sm:inline sm:ml-1.5 sm:text-xs sm:font-semibold">Sign Out</span>
             </button>
           </div>
         </header>
