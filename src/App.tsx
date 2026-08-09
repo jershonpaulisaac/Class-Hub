@@ -28,7 +28,7 @@ function AuthedApp() {
       {tab === 'assignments' && <AssignmentsView />*/}
       {tab === 'notices' && <NoticesView />}
       {tab === 'community' && <CommunityView />}
-      {/*tab === 'notes' && <NotesView /*/>}
+      {/*tab === 'notes' && <NotesView />*/}
       {tab === 'profile' && <ProfileView />}
     </AppLayout>
   );
