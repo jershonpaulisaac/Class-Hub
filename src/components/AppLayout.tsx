@@ -99,14 +99,7 @@ export function AppLayout({
               </div>
             </div>
             <Avatar url={avatarUrl} name={displayName} />
-            <button
-              onClick={onToggleTheme}
-              className={isDark ? 'inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-950 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-slate-700 hover:bg-slate-800' : 'inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50'}
-              title={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-            >
-              {isDark ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
-              <span className="hidden sm:inline">{isDark ? 'Light' : 'Dark'}</span>
-            </button>
+            
             <button
               onClick={signOut}
               className={isDark ? 'inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-950 px-3 py-1.5 text-xs font-semibold text-slate-200 transition hover:border-slate-700 hover:bg-slate-800' : 'inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50'}

@@ -4,7 +4,6 @@ import { supabase, type Timetable } from '@/lib/supabase';
 import { formatTime, todayDow } from '@/lib/utils';
 import { Badge, Card, EmptyState, ErrorState, LoadingState, SectionTitle } from '@/components/ui';
 
-// 1. Added Saturday to the supported tabs
 const TABS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as const;
 type WeekDay = (typeof TABS)[number];
 
@@ -28,7 +27,6 @@ export function TimetableView() {
     return () => { cancelled = true; };
   }, []);
 
-  // 2. Fixed filter: Compare string names case-insensitively instead of matching numbers
   const dayClasses = useMemo(
     () => (rows ?? [])
       .filter((r) => String(r.day_of_week).toLowerCase() === day.toLowerCase())
@@ -56,7 +54,9 @@ export function TimetableView() {
               onClick={() => setDay(wd)}
               className={
                 'relative whitespace-nowrap rounded-xl border px-4 py-2 text-sm font-semibold transition-all ' +
-                (active ? 'border-indigo-200 bg-indigo-50 text-indigo-700' : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900')
+                (active 
+                  ? 'border-indigo-200 bg-indigo-50 text-indigo-700 dark:border-indigo-500/40 dark:bg-indigo-500/15 dark:text-indigo-300' 
+                  : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400 dark:hover:border-slate-700 dark:hover:text-slate-200')
               }
             >
               {wd}
@@ -66,7 +66,7 @@ export function TimetableView() {
         })}
       </div>
 
-      {isToday && <p className="text-xs font-medium text-indigo-600">Showing today's schedule.</p>}
+      {isToday && <p className="text-xs font-medium text-indigo-600 dark:text-indigo-400">Showing today's schedule.</p>}
 
       {dayClasses.length === 0 ? (
         <EmptyState title={`No classes on ${day}`} message="Enjoy the free day." icon={<CalendarDays className="h-6 w-6" />} />
@@ -75,18 +75,18 @@ export function TimetableView() {
           {dayClasses.map((c, idx) => (
             <Card key={c.id} hover className="animate-slide-up p-5">
               <div style={{ animationDelay: `${idx * 60}ms` }} className="flex items-start justify-between">
-                <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">Time</p>
-                  <p className="text-sm font-bold text-indigo-700">{formatTime(c.start_time)}</p>
-                  <p className="text-[10px] text-slate-500">to {formatTime(c.end_time)}</p>
+                <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 dark:border-slate-800 dark:bg-slate-800/60">
+                  <p className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400">Time</p>
+                  <p className="text-sm font-bold text-indigo-700 dark:text-indigo-300">{formatTime(c.start_time)}</p>
+                  <p className="text-[10px] text-slate-500 dark:text-slate-400">to {formatTime(c.end_time)}</p>
                 </div>
                 <Badge tone="sky">{c.subject_code}</Badge>
               </div>
-              <h3 className="mt-4 text-lg font-bold text-slate-900">{c.subject_name}</h3>
-              <div className="mt-3 space-y-1.5 text-sm text-slate-600">
-                <p className="flex items-center gap-2"><DoorOpen className="h-4 w-4 text-slate-500" /> {c.room_number ? `Room ${c.room_number}` : 'Room TBD'}</p>
-                <p className="flex items-center gap-2"><User className="h-4 w-4 text-slate-500" /> {c.faculty?.name ?? 'Faculty TBA'}</p>
-                <p className="flex items-center gap-2"><Clock className="h-4 w-4 text-slate-500" /> {formatTime(c.start_time)} – {formatTime(c.end_time)}</p>
+              <h3 className="mt-4 text-lg font-bold text-slate-900 dark:text-white">{c.subject_name}</h3>
+              <div className="mt-3 space-y-1.5 text-sm text-slate-600 dark:text-slate-300">
+                <p className="flex items-center gap-2"><DoorOpen className="h-4 w-4 text-slate-500 dark:text-slate-400" /> {c.room_number ? `Room ${c.room_number}` : 'Room TBD'}</p>
+                <p className="flex items-center gap-2"><User className="h-4 w-4 text-slate-500 dark:text-slate-400" /> {c.faculty?.name ?? 'Faculty TBA'}</p>
+                <p className="flex items-center gap-2"><Clock className="h-4 w-4 text-slate-500 dark:text-slate-400" /> {formatTime(c.start_time)} – {formatTime(c.end_time)}</p>
               </div>
             </Card>
           ))}
