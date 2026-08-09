@@ -8,11 +8,9 @@ import { OverviewView } from '@/views/OverviewView';
 import { TimetableView } from '@/views/TimetableView';
 import { FacultyView } from '@/views/FacultyView';
 import { EventsView } from '@/views/EventsView';
-import { ResourcesView } from '@/views/ResourcesView';
-import { AssignmentsView } from '@/views/AssignmentsView';
 import { NoticesView } from '@/views/NoticesView';
 import { CommunityView } from '@/views/CommunityView';
-import { NotesView, ProfileView } from '@/views/WorkspaceView';
+import { ProfileView } from '@/views/ProfileView';
 import { GraduationCap, Loader2 } from 'lucide-react';
 
 function AuthedApp() {
@@ -24,11 +22,8 @@ function AuthedApp() {
       {tab === 'timetable' && <TimetableView />}
       {tab === 'faculty' && <FacultyView />}
       {tab === 'events' && <EventsView />}
-      {/*tab === 'resources' && <ResourcesView />*/}
-      {/*tab === 'assignments' && <AssignmentsView />*/}
       {tab === 'notices' && <NoticesView />}
       {tab === 'community' && <CommunityView />}
-      {/*tab === 'notes' && <NotesView />*/}
       {tab === 'profile' && <ProfileView />}
     </AppLayout>
   );

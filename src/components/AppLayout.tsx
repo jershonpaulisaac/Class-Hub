@@ -34,10 +34,10 @@ export function AppLayout({
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <p className={isDark ? 'text-sm font-extrabold tracking-tight text-slate-100' : 'text-sm font-extrabold tracking-tight text-slate-900'}>{BRAND.name}</p>
+              <p className={isDark ? 'text-sm font-extrabold tracking-tight text-white' : 'text-sm font-extrabold tracking-tight text-slate-900'}>{BRAND.name}</p>
               <span className="flex h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
             </div>
-            <p className="text-[10px] uppercase tracking-wider text-indigo-400/90 font-semibold">Academic Hub</p>
+            <p className="text-[10px] uppercase tracking-wider text-indigo-400 font-bold">Academic Portal</p>
           </div>
         </div>
 
@@ -67,8 +67,10 @@ export function AppLayout({
         {/* Sidebar Footer User Card */}
         <div className={isDark ? 'border-t border-slate-800 p-3 space-y-2' : 'border-t border-slate-200 p-3 space-y-2'}>
           <div className={isDark ? 'flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-2.5' : 'flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5'}>
-            <Avatar url={avatarUrl} name={displayName} />
-            <div className="min-w-0 flex-1">
+            <button onClick={() => onNavigate('profile')} className="transition hover:opacity-80">
+              <Avatar url={avatarUrl} name={displayName} />
+            </button>
+            <div className="min-w-0 flex-1 cursor-pointer" onClick={() => onNavigate('profile')}>
               <p className={isDark ? 'truncate text-xs font-semibold text-slate-100' : 'truncate text-xs font-semibold text-slate-800'}>{displayName}</p>
               <p className="truncate text-[10px] text-emerald-400 flex items-center gap-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Active Session
@@ -102,9 +104,9 @@ export function AppLayout({
             </div>
             <div className="flex flex-col">
               <span className="text-base font-black tracking-tight text-white font-sans">
-                Class<span className="text-indigo-400">Hub</span>
+                ClassHub
               </span>
-              <span className="text-[9px] font-bold uppercase tracking-widest text-indigo-400/80 -mt-1">
+              <span className="text-[9px] font-bold uppercase tracking-widest text-indigo-400 -mt-1">
                 Academic Portal
               </span>
             </div>
@@ -119,9 +121,13 @@ export function AppLayout({
 
           {/* Right: User Profile + Sign Out Controls */}
           <div className="flex items-center gap-2.5">
-            <div className={isDark ? 'flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/80 p-1.5 sm:px-3 sm:py-1.5' : 'flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-100/70 p-1.5 sm:px-3 sm:py-1.5'}>
-              <Avatar url={avatarUrl} name={displayName} />
-              <div className="hidden text-left sm:block">
+            <div className={isDark ? 'flex items-center gap-2.5 rounded-xl border border-slate-800 bg-slate-900/80 p-1.5 sm:px-3 sm:py-1.5' : 'flex items-center gap-2.5 rounded-xl border border-slate-200 bg-slate-100/70 p-1.5 sm:px-3 sm:py-1.5'}>
+              {/* Clickable Profile Avatar */}
+              <button onClick={() => onNavigate('profile')} className="transition hover:scale-105">
+                <Avatar url={avatarUrl} name={displayName} />
+              </button>
+              
+              <div className="hidden text-left sm:block cursor-pointer" onClick={() => onNavigate('profile')}>
                 <p className={isDark ? 'max-w-[140px] truncate text-xs font-semibold text-slate-100' : 'max-w-[140px] truncate text-xs font-semibold text-slate-800'}>{displayName}</p>
                 <p className="max-w-[140px] truncate text-[10px] text-slate-400">{user?.email}</p>
               </div>

@@ -1,16 +1,13 @@
 import {
   CalendarDays,
-  ClipboardList,
-  FileText,
   GraduationCap,
   LayoutDashboard,
   type LucideIcon,
   Megaphone,
   MessageCircle,
-  NotebookPen,
   Trophy,
+  UserCircle,
   Users,
-  UserCircle
 } from 'lucide-react';
 
 export type TabId =
@@ -22,8 +19,8 @@ export type TabId =
   | 'assignments'
   | 'notices'
   | 'community'
-  | 'notes'    // 👈 Added
-  | 'profile';  // 👈 Added
+  | 'notes'
+  | 'profile';
 
 export type NavItem = {
   id: TabId;
@@ -37,12 +34,12 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'timetable', label: 'Timetable', short: 'Schedule', icon: CalendarDays },
   { id: 'faculty', label: 'Faculty', short: 'Faculty', icon: Users },
   { id: 'events', label: 'Events', short: 'Events', icon: Trophy },
-  //{ id: 'resources', label: 'Resources', short: 'Locker', icon: FileText },
-  //{ id: 'assignments', label: 'Assignments', short: 'Tasks', icon: ClipboardList },
+  // { id: 'resources', label: 'Resources', short: 'Locker', icon: FileText },
+  // { id: 'assignments', label: 'Assignments', short: 'Tasks', icon: ClipboardList },
   { id: 'notices', label: 'Notices', short: 'Notices', icon: Megaphone },
   { id: 'community', label: 'Community', short: 'Groups', icon: MessageCircle },
- // { id: 'notes', label: 'My Notes', short: 'Notes', icon: NotebookPen },    // 👈 Added short
-  { id: 'profile', label: 'Profile', short: 'Profile', icon: UserCircle },   // 👈 Added short
+  // { id: 'notes', label: 'My Notes', short: 'Notes', icon: NotebookPen },
+  { id: 'profile', label: 'Profile', short: 'Profile', icon: UserCircle },
 ];
 
 export const BRAND = {
