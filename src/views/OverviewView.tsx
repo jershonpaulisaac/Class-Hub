@@ -98,10 +98,7 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
               )}
             </div>
           </Card>
-          {/* Inside OverviewView.tsx */}
-<p className="mt-2 text-xs text-indigo-400 font-medium">
-  Designed & Developed by Jershon Paul Isaac R
-</p>
+          
           {spotlight && (
             <Card hover className="group cursor-pointer overflow-hidden p-0">
               <button onClick={() => onNavigate('events')} className="block w-full text-left">
