@@ -12,9 +12,21 @@ export function formatTime(time: string | null): string {
 }
 
 export function formatDate(date: string | null): string {
-  if (!date) return '--';
-  const d = new Date(date + 'T00:00:00');
-  if (Number.isNaN(d.getTime())) return '--';
+  if (!date) return 'TBD';
+
+  // Fix: Handle ISO strings, timestamps, or simple YYYY-MM-DD cleanly
+  const isoDateStr = date.includes('T') ? date : `${date.split(' ')[0]}T00:00:00`;
+  const d = new Date(isoDateStr);
+
+  if (Number.isNaN(d.getTime())) {
+    // Fallback if parsing still fails
+    const fallback = new Date(date);
+    if (!Number.isNaN(fallback.getTime())) {
+      return fallback.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
+    }
+    return date; 
+  }
+
   return d.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
 }
 
@@ -30,10 +42,15 @@ export function greeting(): string {
   return 'Good night';
 }
 
-export function daysUntil(date: string): number {
+export function daysUntil(date: string | null): number {
+  if (!date) return -1;
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const target = new Date(date + 'T00:00:00');
+
+  const isoDateStr = date.includes('T') ? date : `${date.split(' ')[0]}T00:00:00`;
+  const target = new Date(isoDateStr);
+
+  if (Number.isNaN(target.getTime())) return -1;
   return Math.round((target.getTime() - today.getTime()) / 86_400_000);
 }
 
