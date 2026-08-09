@@ -37,7 +37,7 @@ export function AppLayout({
               <p className={isDark ? 'text-sm font-extrabold tracking-tight text-white' : 'text-sm font-extrabold tracking-tight text-slate-900'}>{BRAND.name}</p>
               <span className="flex h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
             </div>
-            <p className="text-[10px] uppercase tracking-wider text-indigo-400 font-bold leading-tight">Academic Portal</p>
+           
             <p className="text-[8px] font-bold uppercase tracking-widest text-slate-400">BY JPI</p>
           </div>
         </div>
@@ -106,9 +106,6 @@ export function AppLayout({
             <div className="flex flex-col">
               <span className="text-base font-black tracking-tight text-white font-sans leading-none">
                 ClassHub
-              </span>
-              <span className="text-[9px] font-bold uppercase tracking-widest text-indigo-400 mt-0.5">
-                Academic Portal
               </span>
               <span className="text-[8px] font-bold uppercase tracking-widest text-slate-400">
                 BY JPI
