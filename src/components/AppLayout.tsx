@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { LogOut } from 'lucide-react';
+import { ChevronRight, LogOut } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { BRAND, NAV_ITEMS, type TabId } from '@/components/nav';
 import { initials } from '@/lib/utils';
@@ -151,9 +151,13 @@ export function AppLayout({
       {/* Mobile Bottom Navigation */}
       <nav className={isDark ? 'fixed inset-x-0 bottom-0 z-40 border-t border-slate-800 bg-slate-900/95 backdrop-blur-xl lg:hidden' : 'fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 backdrop-blur-xl lg:hidden'}>
         <div className={isDark ? "pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-slate-900 to-transparent z-10" : "pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-white to-transparent z-10"} />
-        <div className={isDark ? "pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-900 to-transparent z-10" : "pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10"} />
+        
+        {/* Right Scroll Indicator Gradient + Animated Arrow */}
+        <div className={isDark ? "pointer-events-none absolute right-0 top-0 bottom-0 flex w-10 items-center justify-end pr-1 bg-gradient-to-l from-slate-900 via-slate-900/80 to-transparent z-20 text-indigo-400" : "pointer-events-none absolute right-0 top-0 bottom-0 flex w-10 items-center justify-end pr-1 bg-gradient-to-l from-white via-white/80 to-transparent z-20 text-indigo-600"}>
+          <ChevronRight className="h-5 w-5 animate-pulse" />
+        </div>
 
-        <div className="no-scrollbar flex items-center gap-1.5 overflow-x-auto px-3 py-2 scroll-smooth">
+        <div className="no-scrollbar flex items-center gap-1.5 overflow-x-auto pl-3 pr-10 py-2 scroll-smooth">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const isActive = active === item.id;
