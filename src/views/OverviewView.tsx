@@ -51,7 +51,17 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
 
   const userName = user?.user_metadata?.full_name ?? user?.email ?? 'Student';
   const firstName = userName.split(' ')[0].split('@')[0];
-  const todayClasses = (timetable ?? []).filter((c) => String(c.day_of_week).toLowerCase() === String(todayDow()).toLowerCase() || c.day_of_week === todayDow());
+
+  // 1. Get exact day name (e.g., "Monday")
+  const currentDayName = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+
+  // 2. Filter classes matching string name ("Monday") or numeric index (1)
+  const todayClasses = (timetable ?? []).filter(
+    (c) =>
+      String(c.day_of_week).toLowerCase() === currentDayName.toLowerCase() ||
+      c.day_of_week === todayDow()
+  );
+
   const now = nowHHMM();
   const inProgress = todayClasses.find((c) => c.start_time <= now && c.end_time > now) ?? null;
   const nextUp = todayClasses.find((c) => c.start_time >= now) ?? null;
@@ -74,8 +84,6 @@ export function OverviewView({ onNavigate }: { onNavigate: (id: TabId) => void }
           {clock.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true })}
         </p>
       </div>
-
-      
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
